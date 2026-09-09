@@ -47,8 +47,25 @@ export function PointerController() {
     };
     const handleBlur = () => handlePointerLeave();
 
+    // iOS 13+ Safari requires `DeviceOrientationEvent.requestPermission()`,
+    // called synchronously inside a user gesture, before `deviceorientation`
+    // will ever fire — otherwise the Build section's advertised tilt control
+    // is silently dead on iPhone and the idle-drift fallback below quietly
+    // takes its place instead. The first touch is already a real user
+    // gesture we're listening to (for `isTouch`), so piggyback the request
+    // on it rather than adding a separate prompt.
+    let orientationPermissionRequested = false;
     const handlePointerDown = (e: PointerEvent) => {
-      if (e.pointerType === "touch") setIsTouch(true);
+      if (e.pointerType !== "touch") return;
+      setIsTouch(true);
+      if (orientationPermissionRequested) return;
+      orientationPermissionRequested = true;
+      const OrientationEventCtor = window.DeviceOrientationEvent as unknown as {
+        requestPermission?: () => Promise<"granted" | "denied">;
+      };
+      if (typeof OrientationEventCtor?.requestPermission === "function") {
+        OrientationEventCtor.requestPermission().catch(() => {});
+      }
     };
 
     let orientationGranted = false;

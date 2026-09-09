@@ -16,7 +16,7 @@ export function Build() {
         </div>
 
         <div className="flex justify-center">
-          <div className="font-mono text-[10px] tracking-[0.3em] text-plaster/40">
+          <div className="font-mono text-[10px] tracking-[0.3em] text-plaster/60">
             MAGNETIC SPACING — POINTER CONTROLLED
           </div>
         </div>

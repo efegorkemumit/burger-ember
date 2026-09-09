@@ -40,7 +40,10 @@ body {
   color: var(--color-plaster);
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
-  user-select: none;
+  /* Was `user-select: none` sitewide — that also blocked selecting Footer's
+     phone/address copy. Nothing on the page depends on drag-to-select being
+     off (PointerController only reads position, it never does mousedown-drag
+     selection), so text stays selectable everywhere by default now. */
 }
 
 ::selection {

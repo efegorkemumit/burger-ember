@@ -27,6 +27,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full`}
     >
       <body className="min-h-full bg-iron text-plaster antialiased">
+        {/* Seven full-height scroll sections stand between page load and the
+            one interactive element on the site — a keyboard user shouldn't
+            have to tab through all of them to reach it. */}
+        <a
+          href="#menu"
+          className="fixed top-4 left-4 z-50 -translate-y-20 border border-ember bg-iron px-4 py-2 font-mono text-sm tracking-[0.15em] text-plaster transition-transform duration-150 focus:translate-y-0"
+        >
+          Skip to menu
+        </a>
         {children}
       </body>
     </html>

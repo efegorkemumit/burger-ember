@@ -28,7 +28,7 @@ export function Scene() {
         gl={{ antialias: true, alpha: true }}
         camera={{ fov: 30, position: [0, 0.05, 5.6] }}
       >
-        <ambientLight intensity={0.55} color="#ece4d6" />
+        <ambientLight intensity={0.65} color="#ece4d6" />
         <directionalLight
           position={[3, 4, 2]}
           intensity={1.4}
@@ -38,6 +38,17 @@ export function Scene() {
           position={[-3, -1, -2]}
           intensity={0.5}
           color="#e8611f"
+        />
+        {/* Ember rim light: the darkest ingredients (patty, sauce) sit close
+            in value to the iron backdrop without it. Backlighting the
+            silhouette from low-behind, in the direction's own ember-orange,
+            reads as "lit by the fire itself" rather than a generic fill —
+            and keeps the exploded-diagram edges crisp per the Graphic &
+            Technical direction instead of softening them. */}
+        <directionalLight
+          position={[0, -1.5, -3]}
+          intensity={0.9}
+          color="#ff8a3d"
         />
         <fog attach="fog" args={["#171512", 6, 14]} />
         <CameraRig />

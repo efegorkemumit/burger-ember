@@ -17,7 +17,7 @@ export function FinalAssembly() {
         <div className="flex justify-center pb-4">
           <a
             href="#menu"
-            className="pointer-events-auto inline-flex items-center gap-3 border border-ember px-8 py-4 font-mono text-sm tracking-[0.2em] text-plaster transition-[background-color,color,transform] duration-150 ease-out hover:bg-ember hover:text-iron active:scale-[0.97]"
+            className="pointer-events-auto inline-flex items-center gap-3 border border-ember bg-iron/85 px-8 py-4 font-mono text-sm tracking-[0.2em] text-plaster backdrop-blur-sm transition-[background-color,color,transform] duration-150 ease-out hover:bg-ember hover:text-iron active:scale-[0.97]"
           >
             VIEW THE FULL MENU
           </a>

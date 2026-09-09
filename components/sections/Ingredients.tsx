@@ -32,7 +32,7 @@ export function Ingredients() {
               }`}
             >
               <div className="tracking-[0.15em]">{ing.label}</div>
-              <div className="text-[10px] text-plaster/35">{ing.spec}</div>
+              <div className="text-xs text-plaster/60">{ing.spec}</div>
             </li>
           ))}
         </ul>

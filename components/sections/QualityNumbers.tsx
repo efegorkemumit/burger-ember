@@ -12,6 +12,11 @@ export function QualityNumbers() {
     <section data-phase="quality" className="relative z-20 h-[200vh]">
       <div className="sticky top-0 flex h-screen flex-col justify-between px-6 py-14 sm:px-10 lg:px-16">
         <SectionKicker index="05" label="QUALITY / NUMBERS" />
+        {/* The big stat typography itself is aria-hidden (it's a purely
+            decorative "sandwich" around the 3D mesh, split into a back and
+            front copy by QualityTypographyOverlay) — without this, a screen
+            reader gets nothing for this section but its kicker. */}
+        <h2 className="sr-only">180g, 100% beef, cooked over open fire, double cheese</h2>
         <div />
       </div>
     </section>

@@ -10,7 +10,7 @@ export function Hero() {
         <span className="font-mono text-xs tracking-[0.35em] text-plaster/70">
           BURGER EMBER
         </span>
-        <span className="hidden font-mono text-xs tracking-[0.3em] text-plaster/40 sm:block">
+        <span className="hidden font-mono text-xs tracking-[0.3em] text-plaster/60 sm:block">
           LIVE-FIRE ASADOR
         </span>
       </div>

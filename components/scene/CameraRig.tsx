@@ -22,13 +22,23 @@ const CAMERA_DAMP_BASE: Record<string, number> = { assembly: 0.005 };
 const DEFAULT_CAMERA_DAMP_BASE = 0.0008;
 
 export function CameraRig() {
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const lookTarget = useRef(new THREE.Vector3(0, 0.3, 0));
 
   useFrame((_, delta) => {
     const { phase, pointer, reducedMotion } = useSceneStore.getState();
     const damp = 1 - Math.pow(CAMERA_DAMP_BASE[phase] ?? DEFAULT_CAMERA_DAMP_BASE, delta);
     const cfg = CAMERA_TARGETS[phase];
+
+    // Every phase's distance was tuned against a desktop-landscape frame.
+    // On a narrow/tall viewport the same world-space framing puts the
+    // burger's on-screen footprint too large relative to the UI stacked
+    // above/below it (confirmed: Ingredients' label grid collided with the
+    // mesh on a 390px-wide screen). Pull the camera back proportionally as
+    // the aspect ratio narrows instead of retuning every phase by hand.
+    const aspect = size.width / size.height;
+    const aspectScale =
+      aspect >= 0.9 ? 1 : 1 + Math.min(1, (0.9 - aspect) / 0.45) * 0.35;
 
     // Camera position tied to ambient mouse position is exactly the kind
     // of motion `prefers-reduced-motion` exists to remove.
@@ -37,7 +47,7 @@ export function CameraRig() {
 
     camera.position.x += (cfg.pos[0] + px - camera.position.x) * damp;
     camera.position.y += (cfg.pos[1] + py - camera.position.y) * damp;
-    camera.position.z += (cfg.pos[2] - camera.position.z) * damp;
+    camera.position.z += (cfg.pos[2] * aspectScale - camera.position.z) * damp;
 
     lookTarget.current.x += (cfg.look[0] - lookTarget.current.x) * damp;
     lookTarget.current.y += (cfg.look[1] - lookTarget.current.y) * damp;

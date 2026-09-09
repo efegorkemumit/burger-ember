@@ -31,22 +31,37 @@ function Lines({ variant }: { variant: "back" | "front" }) {
  * type itself. Root-mounted once so it can stay perfectly viewport-fixed
  * regardless of where the 05 section sits in document flow.
  */
+// How much of the section's own scroll range is spent fading in/out, at
+// each end. Fading out well before phaseProgress reaches 1 means the
+// overlay is already invisible before the Assembly section's CTA scrolls
+// into the (viewport-fixed) frame, regardless of scroll speed — a fixed
+// duration_500 CSS transition alone could lose that race on a fast scroll
+// and leave "100% BEEF" sitting across "VIEW THE FULL MENU".
+const FADE_MARGIN = 0.14;
+
 export function QualityTypographyOverlay() {
   const phase = useSceneStore((s) => s.phase);
+  const phaseProgress = useSceneStore((s) => s.phaseProgress);
   const active = phase === "quality";
+  const localOpacity = active
+    ? Math.max(
+        0,
+        Math.min(phaseProgress / FADE_MARGIN, (1 - phaseProgress) / FADE_MARGIN, 1)
+      )
+    : 0;
 
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-0 z-[9] transition-opacity duration-500"
-        style={{ opacity: active ? 1 : 0 }}
+        className="pointer-events-none fixed inset-0 z-[9] transition-opacity duration-300"
+        style={{ opacity: localOpacity }}
         aria-hidden
       >
         <Lines variant="back" />
       </div>
       <div
-        className="pointer-events-none fixed inset-0 z-[11] transition-opacity duration-500"
-        style={{ opacity: active ? 1 : 0 }}
+        className="pointer-events-none fixed inset-0 z-[11] transition-opacity duration-300"
+        style={{ opacity: localOpacity }}
         aria-hidden
       >
         <Lines variant="front" />
