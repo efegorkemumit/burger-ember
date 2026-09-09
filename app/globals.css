@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  /* Live-Fire Asador Grill House — direction contract tokens */
+  --color-iron: #171512;      /* soot-black iron */
+  --color-plaster: #ece4d6;   /* whitewashed charred plaster */
+  --color-charcoal: #4a4642;  /* forged charcoal */
+  --color-ember: #e8611f;     /* live ember-orange */
+  --color-ember-hot: #ff8a3d;
+  --color-ember-dim: #7a3410;
+
+  --background: var(--color-iron);
+  --foreground: var(--color-plaster);
+}
+
+@theme inline {
+  --color-iron: var(--color-iron);
+  --color-plaster: var(--color-plaster);
+  --color-charcoal: var(--color-charcoal);
+  --color-ember: var(--color-ember);
+  --color-ember-hot: var(--color-ember-hot);
+  --color-ember-dim: var(--color-ember-dim);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-display: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-iron);
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-iron);
+  color: var(--color-plaster);
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-iron);
+}
+
+/* schematic grid backdrop used across sections for the Graphic & Technical language */
+.schematic-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-plaster) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-plaster) 6%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.text-outline-ember {
+  -webkit-text-stroke: 1px var(--color-ember);
+}
+
+@keyframes pulse-ember {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-ember {
+  animation: pulse-ember 2.4s ease-in-out infinite;
+}
